@@ -4,12 +4,15 @@ body {
     text-align: center;
     padding: 50px;
     color: #4a4a4a;
+    overflow: auto;
+    position: relative;
 }
 
 h1 {
-    font-size: 2.5em;
+    font-size: 3em;
     color: #ff4b5c;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 label {
@@ -31,15 +34,17 @@ button {
     background: #ff4b5c;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 1.2em;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
     background: #d4384d;
+    transform: scale(1.1);
 }
 
 #poem {
@@ -52,6 +57,8 @@ button:hover {
     display: inline-block;
     max-width: 600px;
     word-wrap: break-word;
+    position: relative;
+    z-index: 2;
 }
 
 /* Hiệu ứng cánh hoa hồng rơi */
@@ -70,5 +77,61 @@ button:hover {
     to {
         transform: translateY(100vh);
         opacity: 0;
+    }
+}
+
+/* Thêm hình ảnh meme ngẫu nhiên */
+.meme {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    opacity: 0.8;
+    animation: float 5s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+/* Đám mây bồng bềnh */
+.cloud {
+    position: absolute;
+    width: 150px;
+    opacity: 0.5;
+    animation: drift 10s linear infinite;
+}
+
+@keyframes drift {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(100vw);
+    }
+}
+
+/* Thêm icon lấp lánh cho thơ */
+.sparkle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: gold;
+    border-radius: 50%;
+    animation: twinkle 1s infinite alternate;
+}
+
+@keyframes twinkle {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.5);
+        opacity: 0.5;
     }
 }
