@@ -1,55 +1,67 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f0e3; /* Màu nền nhẹ nhàng */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #fceabb, #f8b500); /* Gradient nền */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    color: #333; /* Màu chữ chính */
 }
 
 h1 {
-    color: #e91e63; /* Màu hồng đậm cho tiêu đề */
+    color: #e91e63;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng chữ */
 }
 
 label, input, button {
+    padding: 12px 15px;
     margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+input {
+    width: 250px;
+    border: 2px solid #ddd;
 }
 
 button {
     background-color: #e91e63;
     color: white;
-    border: none;
     cursor: pointer;
+    font-weight: bold;
 }
 
 button:hover {
     background-color: #c2185b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 #poem {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     width: 80%;
     max-width: 600px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    line-height: 1.6;
+    word-wrap: break-word;
+    font-size: 1.1em;
 }
 
-/* Hiệu ứng cánh hoa hồng rơi */
 .rose-petal {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background-image: url('rose-petal.png'); /* Thay bằng đường dẫn ảnh cánh hoa hồng của bạn */
+    width: 25px;
+    height: 25px;
+    background-image: url('rose-petal.png');
     background-size: contain;
     pointer-events: none;
     animation: fall linear infinite;
@@ -57,6 +69,6 @@ button:hover {
 
 @keyframes fall {
     to {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateY(110vh) rotate(360deg);
     }
 }
