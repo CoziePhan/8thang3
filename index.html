@@ -18,9 +18,11 @@
             poemDiv.innerHTML = "Đang tạo thơ...";
 
             // Thay YOUR_API_KEY bằng API key của bạn
-            const GEMINI_API_KEY = "AIzaSyDjRgBdIAv0xeSHX5hIThYXwdXIdSOM4XQ";
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=GEMINI_API_KEY"`;
+            const apiKey = "YOUR_API_KEY";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+
             const prompt = `Hãy tạo một bài thơ 4 dòng chúc mừng ngày 8/3, có vần và có tên người được chúc là ${name}.`;
+
             const data = {
                 contents: [{ parts: [{ text: prompt }] }]
             };
@@ -34,14 +36,35 @@
                     body: JSON.stringify(data)
                 });
 
+                if (!response.ok) {
+                    throw new Error(`Lỗi HTTP: ${response.status}`);
+                }
+
                 const result = await response.json();
-                const poem = result.candidates[0].content.parts[0].text;
-                poemDiv.innerHTML = poem;
+                console.log("Phản hồi API:", result); // In phản hồi API ra console
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                    const poem = result.candidates[0].content.parts[0].text;
+                    poemDiv.innerHTML = poem;
+                } else {
+                    poemDiv.innerHTML = "Không thể tạo thơ. Phản hồi API không hợp lệ.";
+                }
             } catch (error) {
                 console.error("Lỗi:", error);
-                poemDiv.innerHTML = "Có lỗi xảy ra khi tạo thơ.";
+                poemDiv.innerHTML = `Có lỗi xảy ra khi tạo thơ: ${error.message}`;
             }
         }
+
+        // Hiệu ứng cánh hoa hồng rơi
+        function createRosePetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('rose-petal');
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 5000);
+        }
+
+        setInterval(createRosePetal, 300);
     </script>
 </body>
 </html>
