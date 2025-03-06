@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thơ Chúc Mừng 8/3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Tạo Thơ Chúc Mừng 8/3</h1>
+    <label for="name">Nhập tên:</label>
+    <input type="text" id="name" name="name">
+    <button onclick="generatePoem()">Tạo Thơ</button>
+    <div id="poem"></div>
+
+    <script>
+        async function generatePoem() {
+            const name = document.getElementById("name").value;
+            const poemDiv = document.getElementById("poem");
+            poemDiv.innerHTML = "Đang tạo thơ...";
+
+            // Thay YOUR_API_KEY bằng API key của bạn
+            const GEMINI_API_KEY = "AIzaSyDjRgBdIAv0xeSHX5hIThYXwdXIdSOM4XQ";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=GEMINI_API_KEY"`;
+            const prompt = `Hãy tạo một bài thơ 4 dòng chúc mừng ngày 8/3, có vần và có tên người được chúc là ${name}.`;
+            const data = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                const poem = result.candidates[0].content.parts[0].text;
+                poemDiv.innerHTML = poem;
+            } catch (error) {
+                console.error("Lỗi:", error);
+                poemDiv.innerHTML = "Có lỗi xảy ra khi tạo thơ.";
+            }
+        }
+    </script>
+</body>
+</html>

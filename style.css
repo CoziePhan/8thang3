@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f0e3; /* Màu nền nhẹ nhàng */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    color: #e91e63; /* Màu hồng đậm cho tiêu đề */
+    margin-bottom: 20px;
+}
+
+label, input, button {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c2185b;
+}
+
+#poem {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Hiệu ứng cánh hoa hồng rơi */
+.rose-petal {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('rose-petal.png'); /* Thay bằng đường dẫn ảnh cánh hoa hồng của bạn */
+    background-size: contain;
+    pointer-events: none;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
