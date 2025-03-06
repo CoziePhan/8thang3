@@ -5,26 +5,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Tạo Thơ Chúc Mừng 8/3</h1>
-    <label for="name">Nhập tên:</label>
+    <h1>4 sim 4 sóng</h1>
+    <label for="name">Hãy nhập tên của bạn:</label>
     <input type="text" id="name" name="name">
     <button onclick="generatePoem()">Tạo Thơ</button>
     <div id="poem"></div>
 
     <script>
         async function generatePoem() {
-            const name = document.getElementById("name").value;
+            const name = document.getElementById("name").value.trim();
             const poemDiv = document.getElementById("poem");
-            poemDiv.innerHTML = "Đang tạo thơ...";
+            
+            if (!name) {
+                poemDiv.innerHTML = "Vui lòng nhập tên!";
+                return;
+            }
+
+            poemDiv.innerHTML = "Đang soạn văn...";
 
             // Thay YOUR_API_KEY bằng API key của bạn
-            const apiKey = "YOUR_API_KEY";
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+            const apiKey = "AIzaSyBInu4Vd2IAW-Q8EsS2NLtvhzMKw4EWvi8";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-            const prompt = `Hãy tạo một bài thơ 4 dòng chúc mừng ngày 8/3, có vần và có tên người được chúc là ${name}.`;
-
-            const data = {
-                contents: [{ parts: [{ text: prompt }] }]
+            const requestBody = {
+                contents: [{
+                    parts: [{ text: `Hãy viết một đoạn văn dài, có thể dùng lời lẽ dễ thương cũng được, càng dài càng tốt hãy sáng tạo, để chúc mừng ngày 8/3 với người có tên là ${name}. (Đừng xưng tôi hay gì nhé chỉ chúc thôi, cũng đừng xưng kiểu yêu dấu nha)` }]
+                }]
             };
 
             try {
@@ -33,20 +39,21 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(requestBody)
                 });
 
                 if (!response.ok) {
-                    throw new Error(`Lỗi HTTP: ${response.status}`);
+                    throw new Error(`Lỗi HTTP: ${response.status} - ${await response.text()}`);
                 }
 
                 const result = await response.json();
-                console.log("Phản hồi API:", result); // In phản hồi API ra console
-                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                console.log("Phản hồi API:", result);
+                
+                if (result && result.candidates && result.candidates.length > 0) {
                     const poem = result.candidates[0].content.parts[0].text;
                     poemDiv.innerHTML = poem;
                 } else {
-                    poemDiv.innerHTML = "Không thể tạo thơ. Phản hồi API không hợp lệ.";
+                    poemDiv.innerHTML = "Không thể tạo thơ. API không trả về dữ liệu hợp lệ.";
                 }
             } catch (error) {
                 console.error("Lỗi:", error);
@@ -66,5 +73,18 @@
 
         setInterval(createRosePetal, 300);
     </script>
+<audio id="bg-music" autoplay loop muted>
+    <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<script>
+    window.addEventListener("click", function () {
+        const audio = document.getElementById("bg-music");
+        audio.muted = false; // Bật tiếng khi người dùng tương tác
+        audio.play();
+    }, { once: true }); // Chạy một lần duy nhất
+</script>
+
+    
 </body>
 </html>
